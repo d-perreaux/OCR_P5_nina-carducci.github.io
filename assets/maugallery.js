@@ -52,7 +52,6 @@
     $(".gallery-item").on("click", function() {
       if (options.lightBox && $(this).find("img").length > 0) {
         $.fn.mauGallery.methods.openLightBox($(this), options.lightboxId);
-        console.log(this);
       } else {
         return;
       }
@@ -122,35 +121,34 @@
     },
     prevImage() {
       let activeImage = null;
-      $("img.gallery-item").each(function() {
-        if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
-          activeImage = $(this);
+      $("picture.gallery-item").each(function() {
+        if ($(this).find("img").attr("src") === $(".lightboxImage").attr("src")) {
+          activeImage = $(this).find("img"); 
         }
       });
       let activeTag = $(".tags-bar span.active-tag").data("images-toggle");
       let imagesCollection = [];
       if (activeTag === "all") {
         $(".item-column").each(function() {
-          if ($(this).children("img").length) {
-            imagesCollection.push($(this).children("img"));
+          if ($(this).find("img").length) {
+            imagesCollection.push($(this).find("img"));
           }
         });
       } else {
         $(".item-column").each(function() {
           if (
             $(this)
-              .children("img")
+              .find("picture")
               .data("gallery-tag") === activeTag
           ) {
-            imagesCollection.push($(this).children("img"));
+            imagesCollection.push($(this).find("img"));
           }
         });
       }
       let index = 0,
         next = null;
-
       $(imagesCollection).each(function(i) {
-        if ($(activeImage).attr("src") === $(this).attr("src")) {
+        if ($(activeImage).attr("src") === $(this).attr("src")) {  /* rajouter un find img? */
           index = i - 1;
         }
       });
@@ -158,31 +156,31 @@
       next =
         imagesCollection[index] ||
         imagesCollection[imagesCollection.length - 1];
-      $(".lightboxImage").attr("src", $(next).attr("src"));
+      $(".lightboxImage").attr("src", $(next).attr("src"));   /* rajouter un find img? */
     },
     nextImage() {
       let activeImage = null;
-      $("img.gallery-item").each(function() {
-        if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
-          activeImage = $(this);
+      $("picture.gallery-item").each(function() {
+        if ($(this).find("img").attr("src") === $(".lightboxImage").attr("src")) {
+          activeImage = $(this).find("img");
         }
       });
       let activeTag = $(".tags-bar span.active-tag").data("images-toggle");
       let imagesCollection = [];
       if (activeTag === "all") {
         $(".item-column").each(function() {
-          if ($(this).children("img").length) {
-            imagesCollection.push($(this).children("img"));
+          if ($(this).find("img").length) {
+            imagesCollection.push($(this).find("img"));
           }
         });
       } else {
         $(".item-column").each(function() {
           if (
             $(this)
-              .children("img")
+              .find("picture")
               .data("gallery-tag") === activeTag
           ) {
-            imagesCollection.push($(this).children("img"));
+            imagesCollection.push($(this).find("img"));
           }
         });
       }
