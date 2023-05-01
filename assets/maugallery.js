@@ -50,8 +50,9 @@
   };
   $.fn.mauGallery.listeners = function(options) {
     $(".gallery-item").on("click", function() {
-      if (options.lightBox && $(this).prop("tagName") === "IMG") {
+      if (options.lightBox && $(this).find("img").length > 0) {
         $.fn.mauGallery.methods.openLightBox($(this), options.lightboxId);
+        console.log(this);
       } else {
         return;
       }
@@ -116,7 +117,7 @@
     openLightBox(element, lightboxId) {
       $(`#${lightboxId}`)
         .find(".lightboxImage")
-        .attr("src", element.attr("src"));
+        .attr("src", element.find("img").attr("src"));
       $(`#${lightboxId}`).modal("toggle");
     },
     prevImage() {
